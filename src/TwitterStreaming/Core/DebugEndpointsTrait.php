@@ -50,4 +50,13 @@ trait DebugEndpointsTrait
 		print PHP_EOL;
 		return $this;
 	}
+
+	public function getInfo()
+	{
+		print "Info to send to Twitter Streaming API" . PHP_EOL;
+		$this->getDocsUrl()
+			->getMethod()
+			->getUrl()
+			->getParameters();
+	}
 }

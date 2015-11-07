@@ -53,7 +53,6 @@ final class PublicEndpoint
 	 */
 	public function url()
 	{
-		var_dump($this->type);
 		if ($this->type == Config::PUBLIC_ENDPOINT_TYPE_FILTER) {
 			return [
 				'api' => 'https://stream.twitter.com/1.1/',
@@ -67,6 +66,8 @@ final class PublicEndpoint
 				'endpoint' => 'statuses/sample.json'
 			];
 		}
+
+		return false;
 	}
 
 	/**
