@@ -2,14 +2,29 @@
 
 namespace TwitterStreaming\Endpoints;
 
+use TwitterStreaming\Core\DebugEndpointsTrait;
+use TwitterStreaming\Core\EndpointsTrait;
+
 final class UserEndpoint
 {
+	use EndpointsTrait, DebugEndpointsTrait;
+
+	/**
+	 * List of types that this endpoint allows
+	 *
+	 * @var array
+	 */
+	public static $allowedTypes = [];
+
 	/**
 	 * Current url of documentation regarding this endpoint
 	 *
 	 * @var string
 	 */
-	public $docsUrl = 'https://dev.twitter.com/streaming/userstreams';
+	public function docsUrl()
+	{
+		return 'https://dev.twitter.com/streaming/userstreams';
+	}
 
 	/**
 	 * API url of the type to work on
@@ -18,11 +33,23 @@ final class UserEndpoint
 	 */
 	public function url()
 	{
-		return 'https://userstream.twitter.com/1.1/user.json';
+		return [
+			'api' => 'https://userstream.twitter.com/1.1/',
+			'endpoint' => 'user.json'
+		];
+	}
+
+	/**
+	 * Define the method to use depending of the type of request
+	 *
+	 * @return string
+	 */
+	public function method()
+	{
+		return 'GET';
 	}
 
 	public function __construct()
 	{
-		print "Hello: " . __CLASS__;
 	}
 }
