@@ -73,6 +73,19 @@ final class PublicEndpoint
 
 	public function __construct($type = '')
 	{
+		/**
+		 * We haven't support firehose due requires special permissions
+		 * to access this endpoint. In the majority of the cases those
+		 * permissions are given to specific companies.
+		 */
+		if (strtolower($type) === 'firehose') {
+			throw new TwitterStreamingException(
+				'`Firehose` type is not supported ' .
+				'due it requires special permissions to access.' . PHP_EOL .
+				'More info: https://dev.twitter.com/streaming/reference/get/statuses/firehose'
+			);
+		}
+
 		if (!in_array($type, self::$allowedTypes)) {
 			throw new TwitterStreamingException(
 				'The given `type` parameter does not belong ' .

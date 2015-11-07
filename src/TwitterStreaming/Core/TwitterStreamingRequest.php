@@ -23,8 +23,8 @@ class TwitterStreamingRequest
 	 * Key reference which will change depending of the method
 	 * to send to the request
 	 *
-	 * @see http://docs.guzzlephp.org/en/latest/request-options.html?highlight=form_params#query
-	 * @see http://docs.guzzlephp.org/en/latest/request-options.html?highlight=form_params#form-params
+	 * @see http://docs.guzzlephp.org/en/latest/request-options.html#query
+	 * @see http://docs.guzzlephp.org/en/latest/request-options.html#form-params
 	 * @var string
 	 */
 	protected $flag;

@@ -2,14 +2,30 @@
 
 namespace TwitterStreaming\Endpoints;
 
+use TwitterStreaming\Core\DebugEndpointsTrait;
+use TwitterStreaming\Core\EndpointsTrait;
+use TwitterStreaming\TwitterStreamingException;
+
 final class SiteEndpoint
 {
+	use EndpointsTrait, DebugEndpointsTrait;
+
+	/**
+	 * List of types that this endpoint allows
+	 *
+	 * @var array
+	 */
+	public static $allowedTypes = [];
+
 	/**
 	 * Current url of documentation regarding this endpoint
 	 *
 	 * @var string
 	 */
-	public $docsUrl = 'https://dev.twitter.com/streaming/sitestreams';
+	public function docsUrl()
+	{
+		return 'https://dev.twitter.com/streaming/sitestreams';
+	}
 
 	/**
 	 * API url of the type to work on
@@ -18,11 +34,37 @@ final class SiteEndpoint
 	 */
 	public function url()
 	{
-		return 'https://sitestream.twitter.com/1.1/site.json';
+		return [
+			'api' => 'https://userstream.twitter.com/1.1/',
+			'endpoint' => 'site.json'
+		];
 	}
 
-	public function __construct()
+	/**
+	 * Define the method to use depending of the type of request
+	 *
+	 * @return string
+	 */
+	public function method()
 	{
-		print "Hello: " . __CLASS__ ;
+		return 'GET';
+	}
+
+	public function __construct($type = '')
+	{
+		/**
+		 * By the moment, let's throw an exception due not all
+		 * the applications could be accepted by Twitter to use
+		 * this endpoint.
+		 *
+		 * Anyway we are gonna try to give the proper support :)
+		 *
+		 * @see https://dev.twitter.com/streaming/sitestreams
+		 */
+		throw new TwitterStreamingException(
+			'Site Stream is currently in beta version ' .
+			'so, applications are no longer accepted.' . PHP_EOL .
+			'More info: ' . $this->docsUrl()
+		);
 	}
 }
