@@ -7,6 +7,22 @@ use TwitterStreaming\TwitterStreamingException;
 
 trait EndpointsTrait
 {
+
+	/**
+	 * Type of endpoint to request
+	 *
+	 * @see $docsUrl
+	 * @var string
+	 */
+	protected $type;
+
+	/**
+	 * Parameters to make the request to the API
+	 *
+	 * @var array
+	 */
+	private $params = [];
+
 	/**
 	 * Define if process the request as debug mode
 	 *
@@ -22,6 +38,19 @@ trait EndpointsTrait
 	public function debugMode()
 	{
 		$this->debug = TRUE;
+		return $this;
+	}
+
+	/**
+	 * Define the parameters for the request
+	 * Those parameters depends entirely of the type of endpoint declared
+	 *
+	 * @param array $params
+	 */
+	public function parameters(array $params)
+	{
+		$this->params = $params;
+
 		return $this;
 	}
 

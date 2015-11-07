@@ -2,7 +2,6 @@
 
 namespace TwitterStreaming\Core;
 
-use Mockery\CountValidator\Exception;
 use TwitterStreaming\TwitterStreamingException;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use GuzzleHttp\HandlerStack;

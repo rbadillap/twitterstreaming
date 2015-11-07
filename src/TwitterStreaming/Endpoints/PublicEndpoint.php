@@ -12,21 +12,6 @@ final class PublicEndpoint
 	use EndpointsTrait, DebugEndpointsTrait;
 
 	/**
-	 * Type of endpoint to request
-	 *
-	 * @see $docsUrl
-	 * @var string
-	 */
-	protected $type;
-
-	/**
-	 * Parameters to make the request to the API
-	 *
-	 * @var array
-	 */
-	private $params = [];
-
-	/**
 	 * List of types that this endpoint allows
 	 *
 	 * @var array
@@ -84,19 +69,6 @@ final class PublicEndpoint
 		if ($this->type == 'sample') {
 			return 'GET';
 		}
-	}
-
-	/**
-	 * Define the parameters for the request
-	 * Those parameters depends entirely of the type of endpoint declared
-	 *
-	 * @param array $params
-	 */
-	public function parameters(array $params)
-	{
-		$this->params = $params;
-
-		return $this;
 	}
 
 	public function __construct($type = '')

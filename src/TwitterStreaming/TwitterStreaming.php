@@ -62,7 +62,7 @@ class TwitterStreaming
 	 *
 	 * @param $endpoint
 	 * @throws TwitterStreamingException
-	 * @return void
+	 * @return object
 	 */
 	public function useTheEndpoint($endpoint, $type = '')
 	{
