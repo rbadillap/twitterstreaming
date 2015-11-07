@@ -11,7 +11,6 @@
  */
 namespace TwitterStreaming;
 
-use TwitterStreaming\TwitterStreamingException;
 use TwitterStreaming\TwitterStreamingConfig as Config;
 use Dotenv\Dotenv;
 
@@ -45,7 +44,7 @@ class TwitterStreaming
 	}
 
 	/**
-	 * Mapped list of available endpoints by Twitter Streamming API.
+	 * Mapped list of available endpoints by Twitter Streaming API.
 	 * This method is just to compare the given parameter or to list outside.
 	 *
 	 * @return array

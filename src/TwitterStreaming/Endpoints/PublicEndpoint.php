@@ -4,8 +4,8 @@ namespace TwitterStreaming\Endpoints;
 
 use TwitterStreaming\Core\DebugEndpointsTrait;
 use TwitterStreaming\Core\EndpointsTrait;
-use TwitterStreaming\TwitterStreamingException;
 use TwitterStreaming\TwitterStreamingConfig as Config;
+use TwitterStreaming\TwitterStreamingException;
 
 final class PublicEndpoint
 {

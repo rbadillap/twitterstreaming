@@ -2,9 +2,7 @@
 
 namespace TwitterStreaming\Endpoints;
 
-use TwitterStreaming\EndpointsInterface;
-
-final class SiteEndpoint implements EndpointsInterface
+final class SiteEndpoint
 {
 	/**
 	 * Current url of documentation regarding this endpoint

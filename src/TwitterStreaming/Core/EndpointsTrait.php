@@ -3,6 +3,7 @@
 namespace TwitterStreaming\Core;
 
 use TwitterStreaming\Core\TwitterStreamingRequest as Request;
+use TwitterStreaming\TwitterStreamingException;
 
 trait EndpointsTrait
 {
