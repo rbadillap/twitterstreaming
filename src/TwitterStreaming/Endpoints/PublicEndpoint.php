@@ -76,7 +76,8 @@ final class PublicEndpoint
 		if (!in_array($type, self::$allowedTypes)) {
 			throw new TwitterStreamingException(
 				'The given `type` parameter does not belong ' .
-				"to any valid User Endpoint type.\nShould be any of the following: " .
+				'to any valid (or supported) User Endpoint type.' . PHP_EOL .
+				'Should be any of the following: ' .
 				implode(', ', self::$allowedTypes) . '. More info: ' . $this->docsUrl()
 			);
 		}

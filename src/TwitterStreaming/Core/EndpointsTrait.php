@@ -76,7 +76,13 @@ trait EndpointsTrait
 		// Return the data retrieved and send to the callback
 		$request->retrieve(function ($data) use ($func) {
 			if (is_callable($func)) {
-				return call_user_func($func, $data);
+				/*
+				 * Avoid the limit notices
+				 * @see https://dev.twitter.com/streaming/overview/messages-types#limit_notices
+				 */
+				if (is_null($data->limit)) {
+					return call_user_func($func, $data);
+				}
 			}
 		});
 	}
