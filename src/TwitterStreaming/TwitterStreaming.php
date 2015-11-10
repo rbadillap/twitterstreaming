@@ -66,7 +66,7 @@ class TwitterStreaming
      * @throws TwitterStreamingException
      * @return object
      */
-    public function useTheEndpoint($endpoint, $type = '')
+    public function endpoint($endpoint, $type = '')
     {
         if (is_string($endpoint)) {
             // If is an existent class, return its instance
