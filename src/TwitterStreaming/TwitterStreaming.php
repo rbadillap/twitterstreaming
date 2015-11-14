@@ -11,7 +11,7 @@
  */
 namespace TwitterStreaming;
 
-use TwitterStreaming\TwitterStreamingConfig as Config;
+use TwitterStreaming\Config;
 use Dotenv\Dotenv;
 
 class TwitterStreaming
@@ -30,7 +30,7 @@ class TwitterStreaming
      * an specific endpoint class.
      *
      * @param $_key
-     * @return void
+     * @return object
      */
     private function mapEndpoints($_key, $type)
     {

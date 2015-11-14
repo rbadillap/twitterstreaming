@@ -2,11 +2,15 @@
 
 namespace TwitterStreaming\Core;
 
+use Other\Space\Extender;
+use TwitterStreaming\Extensions\FilterCallback;
 use TwitterStreaming\TwitterStreamingException;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+
+use TwitterStreaming\Core\BaseExtension;
 
 /**
  * This is the main class to execute the request
@@ -17,7 +21,7 @@ use GuzzleHttp\Psr7\Request;
  * Class TwitterStreamingRequest
  * @package TwitterStreaming\Core
  */
-class TwitterStreamingRequest
+class BaseRequest
 {
     /**
      * Key reference which will change depending of the method
@@ -82,12 +86,7 @@ class TwitterStreamingRequest
         return $size ? round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
     }
 
-    /**
-     * Return the Twitter App tokens
-     *
-     * @return array
-     * @throws TwitterStreamingException
-     */
+
     protected function getAppTokens()
     {
         // .env file could have more values stored
@@ -248,7 +247,11 @@ class TwitterStreamingRequest
                          * and also lets trim that message due the last character
                          * is an \r\n which could affect out main logic
                          */
-                        call_user_func($func, json_decode(trim($stream->read($length))));
+//                        call_user_func($func, json_decode(trim($stream->read($length))));
+                        var_dump('here', $stream, FilterCallback::class);
+                        (new FilterCallback($stream, function ($tweet) {
+                            var_dump($tweet);
+                        }));
 
                         if ($this->debugMode) {
                             print

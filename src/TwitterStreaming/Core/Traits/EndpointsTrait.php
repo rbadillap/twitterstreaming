@@ -1,8 +1,8 @@
 <?php
 
-namespace TwitterStreaming\Core;
+namespace TwitterStreaming\Core\Traits;
 
-use TwitterStreaming\Core\TwitterStreamingRequest as Request;
+use TwitterStreaming\Core\BaseRequest;
 use TwitterStreaming\TwitterStreamingException;
 
 trait EndpointsTrait
@@ -66,7 +66,7 @@ trait EndpointsTrait
     {
         try {
 
-            $request = new Request($this->debug);
+            $request = new BaseRequest($this->debug);
             $request->connect($this->method(), $this->url(), $this->params);
 
         } catch (TwitterStreamingException $e) {

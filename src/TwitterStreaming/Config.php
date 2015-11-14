@@ -2,7 +2,7 @@
 
 namespace TwitterStreaming;
 
-abstract class TwitterStreamingConfig
+abstract class Config
 {
     /**
      * Public endpoint

@@ -2,8 +2,8 @@
 
 namespace TwitterStreaming\Endpoints;
 
-use TwitterStreaming\Core\DebugEndpointsTrait;
-use TwitterStreaming\Core\EndpointsTrait;
+use TwitterStreaming\Core\Traits\DebugEndpointsTrait;
+use TwitterStreaming\Core\Traits\EndpointsTrait;
 
 final class UserEndpoint
 {

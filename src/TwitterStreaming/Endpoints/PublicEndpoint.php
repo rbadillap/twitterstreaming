@@ -2,9 +2,9 @@
 
 namespace TwitterStreaming\Endpoints;
 
-use TwitterStreaming\Core\DebugEndpointsTrait;
-use TwitterStreaming\Core\EndpointsTrait;
-use TwitterStreaming\TwitterStreamingConfig as Config;
+use TwitterStreaming\Core\Traits\DebugEndpointsTrait;
+use TwitterStreaming\Core\Traits\EndpointsTrait;
+use TwitterStreaming\Config;
 use TwitterStreaming\TwitterStreamingException;
 
 final class PublicEndpoint
