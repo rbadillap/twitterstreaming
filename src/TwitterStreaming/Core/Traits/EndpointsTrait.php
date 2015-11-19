@@ -132,10 +132,14 @@ trait EndpointsTrait
             foreach ($extensions as $extension) {
                 // Create a new instance of the extension and check if
                 // has the method and its public
-                $reflection = new \ReflectionMethod($extension, $method);
+                $_class = new \ReflectionClass($extension);
+                if ($_class->hasMethod($method)) {
 
-                if ($reflection && $reflection->isPublic()) {
-                    return $this->call($reflection, $extension, $args);
+                    $reflection = new \ReflectionMethod($extension, $method);
+
+                    if ($reflection && $reflection->isPublic()) {
+                        return $this->call($reflection, $extension, $args);
+                    }
                 }
             }
 
