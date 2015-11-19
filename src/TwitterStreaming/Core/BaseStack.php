@@ -13,7 +13,7 @@ use GuzzleHttp\HandlerStack;
  * @see http://guzzle.readthedocs.org/en/latest/handlers-and-middleware.html
  * @package TwitterStreaming\Core
  */
-final class BaseStack
+class BaseStack
 {
     /**
      * Stack that we (and the extensions) will manipulate
