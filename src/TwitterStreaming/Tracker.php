@@ -11,18 +11,50 @@
  */
 namespace TwitterStreaming;
 
-use TwitterStreaming\TwitterStreamingConfig as Config;
-use Dotenv\Dotenv;
+use TwitterStreaming\Core\BaseContainer;
+use TwitterStreaming\Extensions;
 
-class TwitterStreaming
+class Tracker
 {
+    /**
+     * base container which will contain the instance of the BaseContainer clas
+     * s
+     * @var mixed
+     */
+    protected $baseContainer;
+
     function __construct()
     {
-        /**
-         * Load the .env files which must contain
-         * the token of your Twitter Application
-         */
-        (new Dotenv(getcwd()))->load();
+        // Singleton pattern to the base container we don't need
+        // to instantiate the base container a lot of times
+        $this->baseContainer = BaseContainer::getInstance();
+
+        // Register the OauthStack extension by default
+        $this->registerExtension(Extensions\OauthStack::class);
+    }
+
+    /**
+     * Register a new extension, use the BaseContainer to map the new class
+     *
+     * @param string $class
+     * @return $this
+     */
+    public function registerExtension($class)
+    {
+        $this->baseContainer->register($class);
+
+        return $this;
+    }
+
+    /**
+     * Create an alias of registerExtension
+     *
+     * @param string $class
+     * @return Tracker
+     */
+    public function addExtension($class)
+    {
+        return $this->registerExtension($class);
     }
 
     /**
@@ -30,7 +62,7 @@ class TwitterStreaming
      * an specific endpoint class.
      *
      * @param $_key
-     * @return void
+     * @return class
      */
     private function mapEndpoints($_key, $type)
     {

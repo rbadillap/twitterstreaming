@@ -1,6 +1,6 @@
 <?php
 
-namespace TwitterStreaming\Core;
+namespace TwitterStreaming\Core\Traits;
 
 /**
  * Class DebugEndpointsTrait

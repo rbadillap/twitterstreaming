@@ -3,8 +3,6 @@
 namespace TwitterStreaming\Core;
 
 use TwitterStreaming\TwitterStreamingException;
-use GuzzleHttp\Subscriber\Oauth\Oauth1;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
@@ -17,7 +15,7 @@ use GuzzleHttp\Psr7\Request;
  * Class TwitterStreamingRequest
  * @package TwitterStreaming\Core
  */
-class TwitterStreamingRequest
+final class BaseRequest
 {
     /**
      * Key reference which will change depending of the method
@@ -78,45 +76,13 @@ class TwitterStreamingRequest
      */
     public function toHuman($size)
     {
-        $filesizename = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-        return $size ? round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] : '0 Bytes';
-    }
-
-    /**
-     * Return the Twitter App tokens
-     *
-     * @return array
-     * @throws TwitterStreamingException
-     */
-    protected function getAppTokens()
-    {
-        // .env file could have more values stored
-        $acceptable_tokens = [];
-
-        // We only need these values
-        $tokens = [
-            'CONSUMER_KEY',
-            'CONSUMER_SECRET',
-            'TOKEN',
-            'TOKEN_SECRET'
+        $filesizename = [
+            " Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB"
         ];
 
-        // Nah, this is a simple way to add to $acceptable_tokens
-        // the values that we need. Is probably that we are gonna
-        // change this due this names are so generic and some
-        // applications/frameworks could use the same names
-        foreach ($tokens as $value => $token) {
-            if (!getenv($token)) {
-                throw new TwitterStreamingException(
-                    'Missing required argument `' . $token .
-                    '`. Please check your .env file'
-                );
-            }
-
-            $acceptable_tokens[strtolower($token)] = getenv($token);
-        }
-
-        return $acceptable_tokens;
+        return $size?
+            round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i] :
+            '0 Bytes';
     }
 
     public function connect($method, $url, array $parameters = [])
@@ -132,15 +98,9 @@ class TwitterStreamingRequest
         try {
 
             /**
-             * Create a new handler, we are gonna use this handler to create
-             * a new oAuth instance
-             *
-             * @see https://github.com/guzzle/oauth-subscriber
+             * Load the stack from BaseStrack class
              */
-            $stack = HandlerStack::create();
-
-            $middleware = new Oauth1($this->getAppTokens());
-            $stack->push($middleware);
+            $stack = BaseStack::getStack();
 
             /**
              * All the request must have these values, so let's assign
