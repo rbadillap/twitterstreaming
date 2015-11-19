@@ -17,8 +17,8 @@ use TwitterStreaming\Extensions;
 class Tracker
 {
     /**
-     * base container which will contain the instance of the BaseContainer clas
-     * s
+     * base container which will contain the instance of the BaseContainer class
+     *
      * @var mixed
      */
     protected $baseContainer;
