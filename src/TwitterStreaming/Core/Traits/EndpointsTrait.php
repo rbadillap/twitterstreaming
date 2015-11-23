@@ -88,7 +88,7 @@ trait EndpointsTrait
                  * Avoid the limit notices
                  * @see https://dev.twitter.com/streaming/overview/messages-types#limit_notices
                  */
-                if (is_null($data->limit)) {
+                if (!array_key_exists('limit', $data) || is_null($data->limit)) {
                     return call_user_func($func, $data);
                 }
             }
