@@ -85,15 +85,13 @@ trait EndpointsTrait
         // Return the data retrieved and send to the callback
         $request->retrieve(function ($data) use ($func) {
             if (is_callable($func)) {
+
+                // Execute the behaviors registered
                 if (BaseBehaviors::resolve($data)) {
+
+                    // If all the behaviors returns true, lets continue with this tweet
                     return call_user_func($func, $data);
                 }
-                /*
-                 * Avoid the limit notices
-                 * @see https://dev.twitter.com/streaming/overview/messages-types#limit_notices
-                 */
-//                if (!array_key_exists('limit', $data) || is_null($data->limit)) {
-//                }
             }
         });
     }
