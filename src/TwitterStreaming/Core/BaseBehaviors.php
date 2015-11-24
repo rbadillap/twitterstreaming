@@ -14,7 +14,7 @@ namespace TwitterStreaming\Core;
 class BaseBehaviors
 {
     /** @var array  */
-    private $stack = [];
+    public static $stack = [];
 
     /**
      * Add new function to the stack to be called later
@@ -22,19 +22,9 @@ class BaseBehaviors
      * @param callable $method
      * @param string $name
      */
-    public function add(callable $method, $name = '')
+    public static function add(callable $method, $name = '')
     {
-        $this->stack[] = [$method, $name];
-    }
-
-    /**
-     * Return the current stack
-     *
-     * @return array
-     */
-    public function getStack()
-    {
-        return $this->stack;
+        static::$stack[] = [$method, $name];
     }
 
     /**
@@ -45,7 +35,7 @@ class BaseBehaviors
      */
     public static function resolve($content)
     {
-        foreach (static::getStack() as $behavior) {
+        foreach (static::$stack as $behavior) {
             call_user_func($behavior[0], [$content]);
         }
     }
