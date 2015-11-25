@@ -36,7 +36,11 @@ class BaseBehaviors
     public static function resolve($content)
     {
         foreach (static::$stack as $behavior) {
-            call_user_func($behavior[0], [$content]);
+            if (!call_user_func_array($behavior[0], [$content])) {
+                return false;
+            }
         }
+
+        return true;
     }
 }

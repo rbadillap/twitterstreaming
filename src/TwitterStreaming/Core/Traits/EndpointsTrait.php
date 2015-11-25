@@ -87,6 +87,7 @@ trait EndpointsTrait
             if (is_callable($func)) {
 
                 // Execute the behaviors registered
+                // return true to continue, return false to exclude the tweet
                 if (BaseBehaviors::resolve($data)) {
 
                     // If all the behaviors returns true, lets continue with this tweet
