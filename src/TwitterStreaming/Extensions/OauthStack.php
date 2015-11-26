@@ -34,10 +34,10 @@ final class OauthStack extends BaseStack
 
         // We only need these values
         $tokens = [
-            'CONSUMER_KEY',
-            'CONSUMER_SECRET',
-            'TOKEN',
-            'TOKEN_SECRET'
+            'TWITTERSTREAMING_CONSUMER_KEY',
+            'TWITTERSTREAMING_CONSUMER_SECRET',
+            'TWITTERSTREAMING_TOKEN',
+            'TWITTERSTREAMING_TOKEN_SECRET'
         ];
 
         // Nah, this is a simple way to add to $acceptable_tokens
@@ -46,13 +46,15 @@ final class OauthStack extends BaseStack
         // applications/frameworks could use the same names
         foreach ($tokens as $value => $token) {
             if (!getenv($token)) {
+                var_dump($token);
                 throw new TwitterStreamingException(sprintf(
-                    'Missing required argument `%s`.
-                    Please check your .env file'
-                ), $token);
+                    'Missing required argument `%s`. Please check your .env file',
+                    $token));
             }
 
-            $acceptable_tokens[strtolower($token)] = getenv($token);
+            $acceptable_tokens[
+                strtolower(str_replace('TWITTERSTREAMING_', '', $token))
+            ] = getenv($token);
         }
 
         return $acceptable_tokens;
