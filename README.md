@@ -5,16 +5,37 @@ Throughout this document we'll see that its usage is simple, which can facilitat
 
 ----------
 
-[TOC]
+ - [Installation](#installation)
+ - [Features](#features)
+	 - [Endpoints](#endpoints)
+		 - [How to define an endpoint](#how-to-define-an-endpoint)
+	 - [Parameters](#parameters)
+	 - [Track](#track)
+ - [More examples](#more-examples)
+ - [Contributing](#contributing)
+ - [Contact](#contact)
 
 ## Installation
 
-**TwitterStreaming PHP** is a [Composer](http://getcomposer.org/) package. So that means that will install the package and its dependencies.
+**TwitterStreaming PHP** is a [Composer](http://getcomposer.org/) package. It will install the package and its dependencies.
 The main dependency is [Guzzle](http://guzzlephp.org/) which is a PHP HTTP Client.
 
 To install via composer, run the following command.
 
     composer require rbadillap/twitterstreaming
+
+You will need to create a [Twitter Application](https://apps.twitter.com/). Follow its indications to get the keys.
+
+**TwitterStraming PHP** uses as a dependency [PHP DotEnv](https://github.com/vlucas/phpdotenv) by [Vance Lucas](http://vancelucas.com/). So, create an `.env` file in the root of your project and put the values that you will see in: https://apps.twitter.com/app/[YOUR_APP_ID]/keys.
+
+```
+TWITTERSTREAMING_CONSUMER_KEY=[Consumer Key (API Key)]
+TWITTERSTREAMING_CONSUMER_SECRET=[Consumer Secret (API Secret)]
+TWITTERSTREAMING_TOKEN=[Access Token]
+TWITTERSTREAMING_TOKEN_SECRET=[Access Token Secret]
+```
+
+**TwitterStreaming PHP** will throw an error if were unable to find the `.env` file or the Twitter credentials are invalid. 
 
 ## Features
 
@@ -39,9 +60,9 @@ use TwitterStreaming\Tracker;
 (new Tracker);
 ```
 
-Obviously, we would like to add more configurations on it no?. Ok, let's go to the official documentation of Twitter Streaming API: https://dev.twitter.com/streaming/overview and let's build our code step by step.
+Obviously, we would like to add more configurations. So you need to work close with the official documentation of Twitter Streaming API: https://dev.twitter.com/streaming/overview to understand how this app works.
 
-## Endpoints
+### Endpoints
 
 First of all, something very important to understand, is that Twitter gives to you 3 official endpoints.
 
@@ -63,11 +84,11 @@ use TwitterStreaming\Tracker;
 > **Note:**
 
 > - If you see in the official documentation, there is another API to interact deeper with Twitter, to make searches, read user profile information or post tweets for example, called [REST API](https://dev.twitter.com/rest/public), which doesn't belong to this package due there is a lot of good clients [already written](https://dev.twitter.com/overview/api/twitter-libraries).
-> - In some cases the second argument `type` is not necessary.
+> - In some cases the second argument `type` won't be necessary.
 
-### How to define an endpoint
+#### How to define an endpoint
 
-Depending of the endpoint that you wants to work, you may define the type as well. For example, the Public Endpoint.
+Depending of the endpoint that you're going to work, you may define the type as well. For example, the Public Endpoint.
 
 > **See:** https://dev.twitter.com/streaming/public
 
@@ -110,12 +131,13 @@ use TwitterStreaming\Endpoints;
 
 If you notice, we don't need to specify any URL or any other feature to run an specific endpoint. We have covered all in our library :)
 
-## Defining parameters
+### Parameters
 
-Do you wanna filter tweets by some specific hashtag? or location? or an specific list of users?, of course you do.
-You can set the parameters based on what Twitter allows to you to use.
+After defining the endpoint, you can continue with the parameters that you'd like to send to Twitter.
 
-For example, if you wanna filter tweets using the Public Endpoint and the Filter type, you can see a list of available parameters here: https://dev.twitter.com/streaming/reference/post/statuses/filter you can add all of those parameters in **TwitterStreaming PHP**. How?
+An important point to understand is that you can set the parameters based on what Twitter allows to you to use.
+
+For example, if you wants filter tweets using the Public Endpoint and the Filter type, you can see a list of available parameters here: https://dev.twitter.com/streaming/reference/post/statuses/filter you can add all of those parameters in **TwitterStreaming PHP**. How?
 
 ```php
 require_once 'vendor/autoload.php'; // The autoload from composer
@@ -131,7 +153,7 @@ use TwitterStreaming\Endpoints;
 	]);
 ```
 
-You can filter by two or more hashtags, for example.
+You can filter by two or more hashtags as well, for example.
 
 ```php
 require_once 'vendor/autoload.php'; // The autoload from composer
@@ -170,13 +192,10 @@ use TwitterStreaming\Endpoints;
 > **See:** https://dev.twitter.com/streaming/overview/request-parameters
 
 
-## Working with the retrieved data
+### Track
 
-_Perfect, **TwitterStreaming PHP** works perfect, but now, I need to [whatever you want] all those tweets_.
-
-This is the point what I said that you can integrate with your custom system/workflow.
-
-**TwitterStreaming PHP** will throw to you every single tweet, so you can do whatever you want.
+After define the endpoint and parameters, you will be able to track the tweets.
+**TwitterStreaming PHP** will throw to you every single tweet, and you can manipulate them as your convenience.
 
 Just use the method `track`.
 
@@ -202,9 +221,22 @@ use TwitterStreaming\Endpoints;
 	});
 ```
 
-```ssh
-$ php track.php
-```
+## More examples
 
+We have attached a folder called `examples` with samples about how **TwitterStreaming PHP** works in different scenarios.
 
-#### <i class="icon-upload"></i> Manage document publication
+## Contributing
+
+Use the same workflow as many of the packages that we have here in Github.
+
+ 1. Fork the project.
+ 2. Create your feature branch with a related-issue name.
+ 3. Try to be clear with the code committed and follow the [PSR-2 Coding Style Guide](http://www.php-fig.org/psr/psr-2/).
+ 4. Run the tests (and create your new ones if necessary).
+ 5. Commit and push the branch.
+ 6. Create the Pull Request.
+
+## Contact
+
+Any questions regarding this package, shoot this out to info@ronnybadilla.com
+
