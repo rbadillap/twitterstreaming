@@ -46,7 +46,6 @@ final class OauthStack extends BaseStack
         // applications/frameworks could use the same names
         foreach ($tokens as $value => $token) {
             if (!getenv($token)) {
-                var_dump($token);
                 throw new TwitterStreamingException(sprintf(
                     'Missing required argument `%s`. Please check your .env file',
                     $token));
