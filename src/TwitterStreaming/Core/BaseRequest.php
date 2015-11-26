@@ -68,6 +68,27 @@ final class BaseRequest
     }
 
     /**
+     * Parse the track flag
+     *
+     * A comma-separated list of phrases which will be used to determine what Tweets will be
+     * delivered on the stream. A phrase may be one or more terms separated by spaces,
+     * and a phrase will match if all of the terms in the phrase are present in the Tweet,
+     * regardless of order and ignoring case.
+     * By this model, you can think of commas as logical ORs, while spaces are equivalent
+     * to logical ANDs (e.g. ‘the twitter’ is the AND twitter, and ‘the,twitter’ is the OR twitter).
+     *
+     * @see https://dev.twitter.com/streaming/overview/request-parameters
+     * @param $value
+     * @return string
+     */
+    private function parseTracks($value)
+    {
+        if (is_array($value)) {
+            return implode(',', $value);
+        }
+    }
+
+    /**
      * Convert the memory usage bytes in some
      * more readable value
      *
@@ -155,6 +176,11 @@ final class BaseRequest
              * @var  $value
              */
             foreach ($this->parameters as $params => $value) {
+
+                if ($params == 'track') {
+                    $value = $this->parseTracks($value);
+                }
+
                 $extra_params[$this->flag][$params] = $value;
             }
 
