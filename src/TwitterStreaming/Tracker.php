@@ -116,9 +116,7 @@ class Tracker
             }
 
             // If endpoint param are correct, create new instance.
-            $this->mapEndpoints($endpoint, $type);
-
-            return $this;
+            return $this->mapEndpoints($endpoint, $type);
         }
     }
 }

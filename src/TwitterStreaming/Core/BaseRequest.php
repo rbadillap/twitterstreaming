@@ -86,6 +86,8 @@ final class BaseRequest
         if (is_array($value)) {
             return implode(',', $value);
         }
+
+        return $value;
     }
 
     /**

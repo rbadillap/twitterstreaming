@@ -18,7 +18,11 @@ final class OauthStack extends BaseStack
          * Load the .env files which must contain
          * the token of your Twitter Application
          */
-        (new Dotenv(getcwd()))->load();
+        if (file_exists(getcwd() . DIRECTORY_SEPARATOR . '.env')) {
+            (new Dotenv(getcwd()))->load();
+        } else {
+            (new Dotenv(dirname(getcwd())))->load();
+        }
     }
 
     /**
@@ -51,9 +55,7 @@ final class OauthStack extends BaseStack
                     $token));
             }
 
-            $acceptable_tokens[
-                strtolower(str_replace('TWITTERSTREAMING_', '', $token))
-            ] = getenv($token);
+            $acceptable_tokens[strtolower(str_replace('TWITTERSTREAMING_', '', $token))] = getenv($token);
         }
 
         return $acceptable_tokens;
