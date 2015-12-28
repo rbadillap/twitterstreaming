@@ -21,7 +21,7 @@ The main dependency is [Guzzle](http://guzzlephp.org/) which is a PHP HTTP Clien
 
 To install via composer, run the following command.
 
-    composer require twitterstreamingphp/twitterstreaming
+    composer require rbadillap/twitterstreaming
 
 You will need to create a [Twitter Application](https://apps.twitter.com/). Follow its indications to get the keys.
 
