@@ -112,7 +112,7 @@ trait EndpointsTrait
         $instance = (new \ReflectionClass($class))->newInstance($args);
 
         // We have created the reflection method, so just invoke the method
-        $reflection->invokeArgs($instance, $args);
+        $reflection->invokeArgs($instance, (array) $args);
 
         return $this;
     }

@@ -10,6 +10,11 @@ use Dotenv\Dotenv;
 
 final class OauthStack extends BaseStack
 {
+    /**
+     * Credentials will be false by default
+     * and gonna be populated if app credentials are provided
+     * @var array|bool|null
+     */
     protected $credentials = false;
 
     /**
@@ -21,22 +26,21 @@ final class OauthStack extends BaseStack
     {
         parent::__construct();
 
-        // Check if Dotenv library is loaded
-        if (class_exists('Dotenv\Dotenv')) {
-            /**
-             * Load the .env files which must contain
-             * the token of your Twitter Application
-             */
-            if (file_exists(getcwd() . DIRECTORY_SEPARATOR . '.env')) {
-                (new Dotenv(getcwd()))->load();
+        try {
+            // Check if Dotenv library is loaded
+            if (class_exists('Dotenv\Dotenv')) {
+                /**
+                 * Load the .env files which must contain
+                 * the token of your Twitter Application
+                 */
+                if (file_exists(getcwd() . DIRECTORY_SEPARATOR . '.env')) {
+                    (new Dotenv(getcwd()))->load();
+                } else {
+                    (new Dotenv(dirname(getcwd())))->load();
+                }
             } else {
-                (new Dotenv(dirname(getcwd())))->load();
-            }
-        } else {
-            // If Dotenv library are not loaded, the credentials should
-            // be provided in the constructor of the Tracker
-            try {
-
+                // If Dotenv library are not loaded, the credentials should
+                // be provided in the constructor of the Tracker
                 if ( ! is_array($credentials) || ! count($credentials)) {
                     throw new TwitterStreamingException(sprintf(
                         'TwitterStreaming suggests to use vlucas/phpdotenv ' .
@@ -48,10 +52,9 @@ final class OauthStack extends BaseStack
                 }
 
                 $this->credentials = $credentials;
-
-            } catch (\Exception $e) {
-                exit($e->getMessage());
             }
+        } catch (\Exception $e) {
+            exit($e->getMessage());
         }
     }
 
