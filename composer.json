@@ -1,14 +1,15 @@
 {
   "name": "rbadillap/twitterstreaming",
   "description": "PHP library to connect to the Twitter Streaming API.",
+  "keywords": [
+    "twitter",
+    "api",
+    "realtime",
+    "streaming"
+  ],
   "require": {
-    "vlucas/phpdotenv": "^2.1",
     "guzzlehttp/guzzle": "6.*",
     "guzzlehttp/oauth-subscriber": "^0.3.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~4.0",
-    "mockery/mockery": "0.9.*"
   },
   "license": "MIT",
   "authors": [
@@ -18,6 +19,9 @@
     }
   ],
   "minimum-stability": "stable",
+  "suggest": {
+    "vlucas/phpdotenv": "Keep separately your Twitter App credentials using a .env file"
+  },
   "autoload": {
     "psr-4": {
       "TwitterStreaming\\": "src/TwitterStreaming",

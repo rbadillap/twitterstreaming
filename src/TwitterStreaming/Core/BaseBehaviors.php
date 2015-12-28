@@ -32,6 +32,7 @@ class BaseBehaviors
      * This just loop the current stack and executes the functions registered.
      *
      * @param $content
+     * @return bool
      */
     public static function resolve($content)
     {

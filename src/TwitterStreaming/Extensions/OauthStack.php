@@ -10,19 +10,68 @@ use Dotenv\Dotenv;
 
 final class OauthStack extends BaseStack
 {
-    public function __construct()
+    protected $credentials = false;
+
+    /**
+     * OauthStack constructor.
+     * @param array|null $credentials
+     * @throws TwitterStreamingException
+     */
+    public function __construct(array $credentials = null)
     {
         parent::__construct();
 
-        /**
-         * Load the .env files which must contain
-         * the token of your Twitter Application
-         */
-        if (file_exists(getcwd() . DIRECTORY_SEPARATOR . '.env')) {
-            (new Dotenv(getcwd()))->load();
+        // Check if Dotenv library is loaded
+        if (class_exists('Dotenv\Dotenv')) {
+            /**
+             * Load the .env files which must contain
+             * the token of your Twitter Application
+             */
+            if (file_exists(getcwd() . DIRECTORY_SEPARATOR . '.env')) {
+                (new Dotenv(getcwd()))->load();
+            } else {
+                (new Dotenv(dirname(getcwd())))->load();
+            }
         } else {
-            (new Dotenv(dirname(getcwd())))->load();
+            // If Dotenv library are not loaded, the credentials should
+            // be provided in the constructor of the Tracker
+            try {
+
+                if ( ! is_array($credentials) || ! count($credentials)) {
+                    throw new TwitterStreamingException(sprintf(
+                        'TwitterStreaming suggests to use vlucas/phpdotenv ' .
+                        'library to store you Twitter app credentials. ' .
+                        'If you do not want to use it, you should provide those ' .
+                        'values in the Tracker instance. Please take a look the example: ' .
+                        '"examples/WithoutDotEnv.php"'
+                    ));
+                }
+
+                $this->credentials = $credentials;
+
+            } catch (\Exception $e) {
+                exit($e->getMessage());
+            }
         }
+    }
+
+    /**
+     * Retrieve from the registry of the token
+     * Basically if the credentials variable is a valid array
+     * that means that the credentials were provided by the instance
+     *
+     * @param $name
+     * @return string
+     */
+    protected function loadTokensRegistry($name)
+    {
+        // Check if credentials variable is a valid array
+        if ($this->credentials) {
+            return $this->credentials[$name];
+        }
+
+        // If don't, return the value from the $_ENV (using DotEnv library)
+        return getenv($name);
     }
 
     /**
@@ -49,13 +98,14 @@ final class OauthStack extends BaseStack
         // change this due this names are so generic and some
         // applications/frameworks could use the same names
         foreach ($tokens as $value => $token) {
-            if (!getenv($token)) {
+            if ( ! $this->loadTokensRegistry($token)) {
                 throw new TwitterStreamingException(sprintf(
                     'Missing required argument `%s`. Please check your .env file',
                     $token));
             }
 
-            $acceptable_tokens[strtolower(str_replace('TWITTERSTREAMING_', '', $token))] = getenv($token);
+            $acceptable_tokens[strtolower(str_replace('TWITTERSTREAMING_', '',
+                $token))] = $this->loadTokensRegistry($token);
         }
 
         return $acceptable_tokens;

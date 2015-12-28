@@ -45,9 +45,10 @@ final class BaseContainer
     /**
      * Register a new container
      *
-     * @param $name
+     * @param string $name
+     * @param array|null $args
      */
-    public static function register($name)
+    public static function register($name, $args)
     {
         // $name should be an existent class
         try {
@@ -57,7 +58,10 @@ final class BaseContainer
                 ));
             }
 
-            static::$registry[] = $name;
+            static::$registry[$name] = [
+                'class' => $name,
+                'args' => $args
+            ];
 
         } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
@@ -86,6 +90,6 @@ final class BaseContainer
 
     public function __toString()
     {
-        return implode(',', $this->getRegistry());
+        return print_r($this->getRegistry(), true);
     }
 }

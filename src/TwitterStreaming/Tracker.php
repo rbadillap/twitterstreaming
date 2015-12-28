@@ -23,14 +23,18 @@ class Tracker
      */
     protected $baseContainer;
 
-    function __construct()
+    /**
+     * Tracker constructor.
+     * @param array|null $credentials
+     */
+    function __construct(array $credentials = null)
     {
         // Singleton pattern to the base container we don't need
         // to instantiate the base container a lot of times
         $this->baseContainer = BaseContainer::getInstance();
 
         // Register the OauthStack extension by default
-        $this->registerExtension(Extensions\OauthStack::class);
+        $this->registerExtension(Extensions\OauthStack::class, $credentials);
     }
 
     /**
@@ -39,9 +43,9 @@ class Tracker
      * @param string $class
      * @return $this
      */
-    public function registerExtension($class)
+    public function registerExtension($class, $args = null)
     {
-        $this->baseContainer->register($class);
+        $this->baseContainer->register($class, $args);
 
         return $this;
     }
@@ -52,9 +56,9 @@ class Tracker
      * @param string $class
      * @return Tracker
      */
-    public function addExtension($class)
+    public function addExtension($class, $args = nullº)
     {
-        return $this->registerExtension($class);
+        return $this->registerExtension($class, $args);
     }
 
     /**
@@ -95,6 +99,7 @@ class Tracker
      * Check if the parameter is an object or a mapped available endpoint.
      *
      * @param $endpoint
+     * @param $type
      * @throws TwitterStreamingException
      * @return object
      */
@@ -107,8 +112,8 @@ class Tracker
             }
 
             // Check if the parameter match with the list
-            // of availables endpoints
-            if (!in_array($endpoint, $this->availableEndpoints())) {
+            // of available endpoints
+            if ( ! in_array($endpoint, $this->availableEndpoints())) {
                 throw new TwitterStreamingException(
                     'Incorrect endpoint, should be any of the following: ' .
                     implode(', ', $this->availableEndpoints()) . '.'

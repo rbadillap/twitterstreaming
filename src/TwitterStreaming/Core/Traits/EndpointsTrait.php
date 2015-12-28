@@ -48,6 +48,7 @@ trait EndpointsTrait
      * Those parameters depends entirely of the type of endpoint declared
      *
      * @param array $params
+     * @return mixed
      */
     public function parameters(array $params)
     {
@@ -108,7 +109,7 @@ trait EndpointsTrait
     protected function call($reflection, $class, $args)
     {
         // Create a new instance of the class (this will execute __construct as well)
-        $instance = (new \ReflectionClass($class))->newInstance();
+        $instance = (new \ReflectionClass($class))->newInstance($args);
 
         // We have created the reflection method, so just invoke the method
         $reflection->invokeArgs($instance, $args);
@@ -131,7 +132,7 @@ trait EndpointsTrait
         $extensions = BaseContainer::getInstance()->getRegistry();
 
         if (is_array($extensions)) {
-            foreach ($extensions as $extension) {
+            foreach ($extensions as $extension => $registry) {
                 // Create a new instance of the extension and check if
                 // has the method and its public
                 $_class = new \ReflectionClass($extension);
@@ -140,7 +141,7 @@ trait EndpointsTrait
                     $reflection = new \ReflectionMethod($extension, $method);
 
                     if ($reflection && $reflection->isPublic()) {
-                        return $this->call($reflection, $extension, $args);
+                        return $this->call($reflection, $extension, $registry['args']);
                     }
                 }
             }
