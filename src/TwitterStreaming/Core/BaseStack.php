@@ -27,7 +27,6 @@ class BaseStack
     public function __construct()
     {
         if (!self::$stack) {
-
             self::$stack = HandlerStack::create();
 
             self::$stack->setHandler(\GuzzleHttp\choose_handler());

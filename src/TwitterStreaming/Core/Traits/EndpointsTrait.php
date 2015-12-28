@@ -75,10 +75,8 @@ trait EndpointsTrait
         $this->useOauth();
 
         try {
-
             $request = new Request($this->debug);
             $request->connect($this->method(), $this->url(), $this->params);
-
         } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
         }
@@ -137,7 +135,6 @@ trait EndpointsTrait
                 // has the method and its public
                 $_class = new \ReflectionClass($extension);
                 if ($_class->hasMethod($method)) {
-
                     $reflection = new \ReflectionMethod($extension, $method);
 
                     if ($reflection && $reflection->isPublic()) {

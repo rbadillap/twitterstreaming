@@ -27,7 +27,7 @@ class Tracker
      * Tracker constructor.
      * @param array|null $credentials
      */
-    function __construct(array $credentials = null)
+    public function __construct(array $credentials = null)
     {
         // Singleton pattern to the base container we don't need
         // to instantiate the base container a lot of times
@@ -113,7 +113,7 @@ class Tracker
 
             // Check if the parameter match with the list
             // of available endpoints
-            if ( ! in_array($endpoint, $this->availableEndpoints())) {
+            if (! in_array($endpoint, $this->availableEndpoints())) {
                 throw new TwitterStreamingException(
                     'Incorrect endpoint, should be any of the following: ' .
                     implode(', ', $this->availableEndpoints()) . '.'

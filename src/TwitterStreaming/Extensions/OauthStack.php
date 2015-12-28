@@ -41,7 +41,7 @@ final class OauthStack extends BaseStack
             } else {
                 // If Dotenv library are not loaded, the credentials should
                 // be provided in the constructor of the Tracker
-                if ( ! is_array($credentials) || ! count($credentials)) {
+                if (! is_array($credentials) || ! count($credentials)) {
                     throw new TwitterStreamingException(sprintf(
                         'TwitterStreaming suggests to use vlucas/phpdotenv ' .
                         'library to store you Twitter app credentials. ' .
@@ -101,7 +101,7 @@ final class OauthStack extends BaseStack
         // change this due this names are so generic and some
         // applications/frameworks could use the same names
         foreach ($tokens as $value => $token) {
-            if ( ! $this->loadTokensRegistry($token)) {
+            if (! $this->loadTokensRegistry($token)) {
                 throw new TwitterStreamingException(sprintf(
                     'Missing required argument `%s`. Please check your .env file',
                     $token));
@@ -124,9 +124,7 @@ final class OauthStack extends BaseStack
     public function useOauth()
     {
         try {
-
             parent::$stack->push(new Oauth1($this->getAppTokens()));
-
         } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
         }

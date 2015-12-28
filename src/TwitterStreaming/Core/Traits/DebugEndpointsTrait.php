@@ -37,7 +37,7 @@ trait DebugEndpointsTrait
         return $this;
     }
 
-    abstract function parameters(array $params);
+    abstract public function parameters(array $params);
 
     public function getParameters()
     {

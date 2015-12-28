@@ -18,5 +18,4 @@ class MyCustomExtension
             'a TwitterStreaming PHP extension :)' . PHP_EOL
         ;
     }
-
 }

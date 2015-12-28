@@ -26,5 +26,3 @@ use TwitterStreaming\Extensions;
         // Before this part, you'll see a "hello" string
         print_r($tweet);
     });
-
-

@@ -24,5 +24,3 @@ use TwitterStreaming\Extensions;
         // Print the tweet object
         print_r($tweet);
     });
-
-

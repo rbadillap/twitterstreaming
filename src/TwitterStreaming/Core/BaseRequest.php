@@ -62,7 +62,7 @@ final class BaseRequest
      */
     protected $debugMode = false;
 
-    function __construct($debugMode)
+    public function __construct($debugMode)
     {
         $this->debugMode = $debugMode;
     }
@@ -142,7 +142,6 @@ final class BaseRequest
                 'handler' => $stack,
                 'auth' => 'oauth',
             ]);
-
         } catch (Exception $e) {
             throw new TwitterStreamingException($e->getMessage());
         }
@@ -178,7 +177,6 @@ final class BaseRequest
              * @var  $value
              */
             foreach ($this->parameters as $params => $value) {
-
                 if ($params == 'track') {
                     $value = $this->parseTracks($value);
                 }
@@ -257,7 +255,6 @@ final class BaseRequest
                     }
                 }
             }
-
         } catch (Exception $e) {
             throw new TwitterStreamingException($e->getMessage());
         }

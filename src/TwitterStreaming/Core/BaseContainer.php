@@ -62,7 +62,6 @@ final class BaseContainer
                 'class' => $name,
                 'args' => $args
             ];
-
         } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
         }
