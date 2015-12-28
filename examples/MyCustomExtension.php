@@ -7,7 +7,7 @@ namespace TwitterStreaming\Extensions;
  * Take a look the file CreateExtension.php
  *
  * For something real, you can see the Filters extension
- * @see https://github.com/rbadillap/twitterstreaming-filters
+ * @see https://github.com/twitterstreamingphp/twitterstreaming-filters
  */
 class MyCustomExtension
 {

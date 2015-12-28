@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
  * Behaviors is something pretty similar to our BaseStack
  *
  * Is a set of functions that we can execute in the moment that we get a tweet
- * A project like Filters (https://github.com/rbadillap/twitterstreaming-filters)
+ * A project like Filters (https://github.com/twitterstreamingphp/twitterstreaming-filters)
  * uses BaseBehaviors to register all the filters to exclude/include tweets
  * and then, send to the track method.
  *
