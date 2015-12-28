@@ -22,11 +22,15 @@ The main dependency is [Guzzle](http://guzzlephp.org/) which is a PHP HTTP Clien
 
 To install via composer, run the following command.
 
-    composer require rbadillap/twitterstreaming
+    composer require twitterstreamingphp/twitterstreaming
 
 You will need to create a [Twitter Application](https://apps.twitter.com/). Follow its indications to get the keys.
 
-**TwitterStraming PHP** uses as a dependency [PHP DotEnv](https://github.com/vlucas/phpdotenv) by [Vance Lucas](http://vancelucas.com/). So, create an `.env` file in the root of your project and put the values that you will see in: https://apps.twitter.com/app/[YOUR_APP_ID]/keys.
+**TwitterStreaming PHP** suggests to use [PHP DotEnv](https://github.com/vlucas/phpdotenv) by [Vance Lucas](http://vancelucas.com/) to store you Twitter Application credentials, and keep separately from the code. If you wanna use it, you can include it in your `package.json` typing:
+
+    composer require vlucas/phpdotenv
+
+Then create an `.env` file in the root of your project and put the values that you will see in: https://apps.twitter.com/app/[YOUR_APP_ID]/keys.
 
 ```
 TWITTERSTREAMING_CONSUMER_KEY=[Consumer Key (API Key)]
@@ -34,6 +38,8 @@ TWITTERSTREAMING_CONSUMER_SECRET=[Consumer Secret (API Secret)]
 TWITTERSTREAMING_TOKEN=[Access Token]
 TWITTERSTREAMING_TOKEN_SECRET=[Access Token Secret]
 ```
+
+Elsewhere if you won't use this library, you should provide those credentials in the code at the moment you instance the `Tracker` class (take a look the file: `WithoutDotEnv.php` located in the examples folder).
 
 **TwitterStreaming PHP** will throw an error if were unable to find the `.env` file or the Twitter credentials are invalid. 
 
