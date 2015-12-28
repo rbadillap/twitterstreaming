@@ -13,7 +13,6 @@ Throughout this document we'll see that its usage is simple, which can facilitat
 	 - [Track](#track)
  - [More examples](#more-examples)
  - [Contributing](#contributing)
- - [Contact](#contact)
 
 ## Installation
 
@@ -241,8 +240,3 @@ Use the same workflow as many of the packages that we have here in Github.
  4. Run the tests (and create your new ones if necessary).
  5. Commit and push the branch.
  6. Create the Pull Request.
-
-## Contact
-
-Any questions regarding this package, shoot this out to info@ronnybadilla.com
-
