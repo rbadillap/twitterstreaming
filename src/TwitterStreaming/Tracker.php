@@ -41,6 +41,7 @@ class Tracker
      * Register a new extension, use the BaseContainer to map the new class
      *
      * @param string $class
+     * @param array|null $args
      * @return $this
      */
     public function registerExtension($class, $args = null)
@@ -54,9 +55,10 @@ class Tracker
      * Create an alias of registerExtension
      *
      * @param string $class
+     * @param array|null $args
      * @return Tracker
      */
-    public function addExtension($class, $args = nullº)
+    public function addExtension($class, $args = null)
     {
         return $this->registerExtension($class, $args);
     }

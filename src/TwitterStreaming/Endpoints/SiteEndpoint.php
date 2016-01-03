@@ -20,7 +20,7 @@ final class SiteEndpoint
     /**
      * Current url of documentation regarding this endpoint
      *
-     * @var string
+     * @string string
      */
     public function docsUrl()
     {

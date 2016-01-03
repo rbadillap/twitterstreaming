@@ -39,6 +39,7 @@ TWITTERSTREAMING_TOKEN_SECRET=[Access Token Secret]
 ```
 
 Elsewhere if you won't use this library, you should provide those credentials in the code at the moment you instance the `Tracker` class (take a look the file: `WithoutDotEnv.php` located in the examples folder).
+Also, if you wanna provide the credentials despite that you are already using the DotEnv library, you just need to provide those credentials through the instance creation and **TwitterStreaming PHP** will prioritize that.
 
 **TwitterStreaming PHP** will throw an error if were unable to find the `.env` file or the Twitter credentials are invalid. 
 

@@ -28,7 +28,9 @@ final class OauthStack extends BaseStack
 
         try {
             // Check if Dotenv library is loaded
-            if (class_exists('Dotenv\Dotenv')) {
+            // If credentials are provided, let's prioritize those
+            // values instead of take in consideration the Dotenv library
+            if (class_exists('Dotenv\Dotenv') && ! $credentials) {
                 /**
                  * Load the .env files which must contain
                  * the token of your Twitter Application
