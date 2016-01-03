@@ -55,7 +55,7 @@ final class OauthStack extends BaseStack
 
                 $this->credentials = $credentials;
             }
-        } catch (\Exception $e) {
+        } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
         }
     }
