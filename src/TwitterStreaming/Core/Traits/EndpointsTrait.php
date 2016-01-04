@@ -110,7 +110,7 @@ trait EndpointsTrait
         $instance = (new \ReflectionClass($class))->newInstance($args);
 
         // We have created the reflection method, so just invoke the method
-        $reflection->invokeArgs($instance, (array) $args);
+        $reflection->invokeArgs($instance, (array)$args);
 
         return $this;
     }
@@ -126,27 +126,32 @@ trait EndpointsTrait
      */
     public function __call($method, $args)
     {
-        // Get the extensions registered of the BaseContainer class
-        $extensions = BaseContainer::getInstance()->getRegistry();
+        try {
 
-        if (is_array($extensions)) {
-            foreach ($extensions as $extension => $registry) {
-                // Create a new instance of the extension and check if
-                // has the method and its public
-                $_class = new \ReflectionClass($extension);
-                if ($_class->hasMethod($method)) {
-                    $reflection = new \ReflectionMethod($extension, $method);
+            // Get the extensions registered of the BaseContainer class
+            $extensions = BaseContainer::getInstance()->getRegistry();
 
-                    if ($reflection && $reflection->isPublic()) {
-                        return $this->call($reflection, $extension, $registry['args']);
+            if (is_array($extensions)) {
+                foreach ($extensions as $extension => $registry) {
+                    // Create a new instance of the extension and check if
+                    // has the method and its public
+                    $_class = new \ReflectionClass($extension);
+                    if ($_class->hasMethod($method)) {
+                        $reflection = new \ReflectionMethod($extension, $method);
+
+                        if ($reflection && $reflection->isPublic()) {
+                            return $this->call($reflection, $extension, $registry['args']);
+                        }
                     }
                 }
-            }
 
-            throw new TwitterStreamingException(sprintf(
-                'Unable to find a class with the method `%s`',
-                $method
-            ));
+                throw new TwitterStreamingException(sprintf(
+                    'Unable to find a class with the method `%s`',
+                    $method
+                ));
+            }
+        } catch (TwitterStreamingException $e) {
+            exit($e->getMessage());
         }
     }
 }
