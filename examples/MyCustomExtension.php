@@ -11,6 +11,10 @@ namespace TwitterStreaming\Extensions;
  */
 class MyCustomExtension
 {
+    public function __construct()
+    {
+    }
+
     public function helloWorld()
     {
         print

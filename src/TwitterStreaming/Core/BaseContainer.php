@@ -46,9 +46,8 @@ final class BaseContainer
      * Register a new container
      *
      * @param string $name
-     * @param array|null $args
      */
-    public static function register($name, $args)
+    public static function register($name)
     {
         // $name should be an existent class
         try {

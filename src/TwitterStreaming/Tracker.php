@@ -6,7 +6,7 @@
  * PHP library to connect to the Twitter Streaming API
  * and retrieve data in real-time.
  *
- * @version 0.1.4
+ * @version 0.1.5
  * @license MIT
  */
 namespace TwitterStreaming;
