@@ -58,10 +58,8 @@ final class BaseContainer
                 ));
             }
 
-            static::$registry[$name] = [
-                'class' => $name,
-                'args' => $args
-            ];
+            static::$registry[] = $name;
+
         } catch (TwitterStreamingException $e) {
             exit($e->getMessage());
         }

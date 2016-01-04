@@ -67,13 +67,6 @@ trait EndpointsTrait
      */
     public function track($func)
     {
-        /**
-         * Execute useOauth by default
-         * Due we decided to include OauthExtension by default
-         * we should call its method
-         */
-        $this->useOauth();
-
         try {
             $request = new Request($this->debug);
             $request->connect($this->method(), $this->url(), $this->params);
@@ -132,7 +125,7 @@ trait EndpointsTrait
             $extensions = BaseContainer::getInstance()->getRegistry();
 
             if (is_array($extensions)) {
-                foreach ($extensions as $extension => $registry) {
+                foreach ($extensions as $extension) {
                     // Create a new instance of the extension and check if
                     // has the method and its public
                     $_class = new \ReflectionClass($extension);
@@ -140,7 +133,7 @@ trait EndpointsTrait
                         $reflection = new \ReflectionMethod($extension, $method);
 
                         if ($reflection && $reflection->isPublic()) {
-                            return $this->call($reflection, $extension, $registry['args']);
+                            return $this->call($reflection, $extension, $args);
                         }
                     }
                 }

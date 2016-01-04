@@ -6,7 +6,7 @@
  * PHP library to connect to the Twitter Streaming API
  * and retrieve data in real-time.
  *
- * @version 0.1.3
+ * @version 0.1.4
  * @license MIT
  */
 namespace TwitterStreaming;
@@ -34,19 +34,25 @@ class Tracker
         $this->baseContainer = BaseContainer::getInstance();
 
         // Register the OauthStack extension by default
-        $this->registerExtension(Extensions\OauthStack::class, $credentials);
+        $this->registerExtension(Extensions\OauthStack::class);
+
+        /*
+         * Execute useOauth by default
+         * Due we decided to include OauthExtension by default
+         * we should call its method
+         */
+        (new Extensions\OauthStack($credentials))->useOauth();
     }
 
     /**
      * Register a new extension, use the BaseContainer to map the new class
      *
      * @param string $class
-     * @param array|null $args
      * @return $this
      */
-    public function registerExtension($class, $args = null)
+    public function registerExtension($class)
     {
-        $this->baseContainer->register($class, $args);
+        $this->baseContainer->register($class);
 
         return $this;
     }
@@ -55,19 +61,19 @@ class Tracker
      * Create an alias of registerExtension
      *
      * @param string $class
-     * @param array|null $args
      * @return Tracker
      */
-    public function addExtension($class, $args = null)
+    public function addExtension($class)
     {
-        return $this->registerExtension($class, $args);
+        return $this->registerExtension($class);
     }
 
     /**
      * Map of the endpoints. The given parameter belongs to
      * an specific endpoint class.
      *
-     * @param $_key
+     * @param string $_key
+     * @param string $type
      * @return class
      */
     private function mapEndpoints($_key, $type)
