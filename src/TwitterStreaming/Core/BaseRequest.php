@@ -61,6 +61,13 @@ final class BaseRequest
      * @var bool
      */
     protected $debugMode = false;
+    
+    /**
+     * Allow force disconnect
+     *
+     * @var bool
+     */
+    protected $continue = true;
 
     public function __construct($debugMode)
     {
@@ -149,6 +156,11 @@ final class BaseRequest
         return $this;
     }
 
+    public function disconnect()
+    {
+        $this->continue =  false;
+    }
+    
     public function retrieve($func)
     {
         try {
@@ -202,9 +214,9 @@ final class BaseRequest
             // Set the length, we are gonna need this value then
             $length = '';
 
-            // Run until stream are finished, which it's rare due
+            // Run until stream are finished or disconnected, which it's rare due
             // we are using a Keep-Alive connection
-            while (!$stream->eof()) {
+            while (!$stream->eof() && $this->continue) {
 
                 /**
                  * Step by step.
