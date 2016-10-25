@@ -75,7 +75,7 @@ trait EndpointsTrait
         }
 
         // Return the data retrieved and send to the callback
-        $request->retrieve(function ($data) use ($func) {
+        $request->retrieve(function ($data) use ($func,$request) {
             if (is_callable($func)) {
 
                 // Execute the behaviors registered
@@ -83,7 +83,7 @@ trait EndpointsTrait
                 if (BaseBehaviors::resolve($data)) {
 
                     // If all the behaviors returns true, lets continue with this tweet
-                    return call_user_func($func, $data);
+                    return call_user_func($func, $data, $request);
                 }
             }
         });
