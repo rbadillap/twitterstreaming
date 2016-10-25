@@ -227,6 +227,38 @@ use TwitterStreaming\Endpoints;
 	});
 ```
 
+### Disconnect
+
+In some cases you may need to disconnect from the stream after meeting some criteria. In this case you can use the `disconnect()` method from inside the `track()` closure method. To do so you can pass a second optional $request argument to the closure. Here is the same example from above with a disconnect() implemented.
+
+```php
+// track.php
+require_once 'vendor/autoload.php'; // The autoload from composer
+
+use TwitterStreaming\Tracker;
+use TwitterStreaming\Endpoints;
+
+(new Tracker)
+	->endpoint(Endpoints\PublicEndpoint::class, 'filter')
+	->parameters([
+		'track' => '#twitter #facebook #instagram',
+		'location' => '-122.75,36.8,-121.75,37.8'
+	])
+	->track(function($tweet,$request) {
+		// Do a print_r($tweet) if you wanna see more
+		// details of the tweet.
+		print "Tweet details:" . PHP_EOL;
+		print "User: @" . $tweet->user->screen_name . PHP_EOL;
+		print "Content: " . $tweet->text . PHP_EOL;
+		
+		//disconnect from stream after reaching tweet limit
+		if($this-tweetCount >= $this->tweetLimit) {
+			$request->disconnect();
+		}
+		
+	});
+```
+
 ## More examples
 
 We have attached a folder called `examples` with samples about how **TwitterStreaming PHP** works in different scenarios.
