@@ -10,7 +10,8 @@ Throughout this document we'll see that its usage is simple, which can facilitat
 	 - [Endpoints](#endpoints)
 		 - [How to define an endpoint](#how-to-define-an-endpoint)
 	 - [Parameters](#parameters)
-	 - [Track](#track)
+   - [Track](#track)
+   - [Disconnect](#disconnect)
  - [More examples](#more-examples)
  - [Contributing](#contributing)
 
@@ -41,7 +42,7 @@ TWITTERSTREAMING_TOKEN_SECRET=[Access Token Secret]
 Elsewhere if you won't use this library, you should provide those credentials in the code at the moment you instance the `Tracker` class (take a look the file: `WithoutDotEnv.php` located in the examples folder).
 Also, if you wanna provide the credentials despite that you are already using the DotEnv library, you just need to provide those credentials through the instance creation and **TwitterStreaming PHP** will prioritize that.
 
-**TwitterStreaming PHP** will throw an error if were unable to find the `.env` file or the Twitter credentials are invalid. 
+**TwitterStreaming PHP** will throw an error if were unable to find the `.env` file or the Twitter credentials are invalid.
 
 ## Features
 
@@ -250,12 +251,12 @@ use TwitterStreaming\Endpoints;
 		print "Tweet details:" . PHP_EOL;
 		print "User: @" . $tweet->user->screen_name . PHP_EOL;
 		print "Content: " . $tweet->text . PHP_EOL;
-		
+
 		//disconnect from stream after reaching tweet limit
 		if($this-tweetCount >= $this->tweetLimit) {
 			$request->disconnect();
 		}
-		
+
 	});
 ```
 
